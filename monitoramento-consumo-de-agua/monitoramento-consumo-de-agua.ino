@@ -3,12 +3,8 @@
 #include <addons/TokenHelper.h>
 #include "time.h"
 
-// ----------- CONFIGURAÇÕES DE CONEXÃO WI-FI E FIREBASE -----------
-#define WIFI_SSID "TIM ULTRAFIBRA_0D10"
-#define WIFI_PASSWORD "QFjp@975tG"
-
-#define API_KEY "AIzaSyAlSmPYQo6f2fzR5SVXMNWQd02579OWxqY"
-#define DATABASE_URL "https://blueflow-7e0d7-default-rtdb.firebaseio.com/"
+// ***** Aqui vai as configurações de wifi e do firebase. *****
+// ***** Deixei sem por motivos de segurança *****
 
 // ----------- CONFIGURAÇÕES DO NTP -----------
 const char* ntpServer = "pool.ntp.org";
