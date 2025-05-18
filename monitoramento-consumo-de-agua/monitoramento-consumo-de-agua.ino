@@ -4,11 +4,8 @@
 #include "time.h"
 
 // ----------- CONFIGURAÇÕES DE CONEXÃO WI-FI E FIREBASE -----------
-#define WIFI_SSID "TIM ULTRAFIBRA_0D10"
-#define WIFI_PASSWORD "QFjp@975tG"
 
-#define API_KEY "AIzaSyAlSmPYQo6f2fzR5SVXMNWQd02579OWxqY"
-#define DATABASE_URL "https://blueflow-7e0d7-default-rtdb.firebaseio.com/"
+//deixando sem por motivos de privacidade e segurança
 
 // ----------- CONFIGURAÇÕES DO NTP -----------
 const char* ntpServer = "pool.ntp.org";
@@ -106,11 +103,29 @@ void loop() {
       Serial.println(" L/min");
 
       if (Firebase.RTDB.setFloat(&fbdo, "/leituras/vazao_Lmin", vazao_Lmin)) {
-        Serial.println("✅ Dado enviado com sucesso!");
+          Serial.println("✅ Valor atual enviado com sucesso!");
       } else {
-        Serial.print("❌ Erro ao enviar dado: ");
-        Serial.println(fbdo.errorReason());
+          Serial.print("❌ Erro ao enviar valor atual: ");
+          Serial.println(fbdo.errorReason());
       }
+
+      // Salvar no histórico com timestamp como chave
+      time_t now;
+      struct tm timeinfo;
+      time(&now);
+      localtime_r(&now, &timeinfo);
+
+      char timestamp[20];
+      strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", &timeinfo); // Formato sem caracteres inválidos
+
+      String path = "/leituras_com_tempo/" + String(timestamp);
+      if (Firebase.RTDB.setFloat(&fbdo, path.c_str(), vazao_Lmin)) {
+          Serial.println("✅ Histórico enviado com sucesso!");
+      } else {
+          Serial.print("❌ Erro ao enviar histórico: ");
+          Serial.println(fbdo.errorReason());
+      }
+
     }
   } else {
     if (!signupOK) Serial.println("⚠️ SignUp não realizado.");
@@ -118,3 +133,6 @@ void loop() {
     delay(2000);
   }
 }
+
+
+
