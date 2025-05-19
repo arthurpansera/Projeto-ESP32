@@ -1,11 +1,5 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAlSmPYQo6f2fzR5SVXMNWQd02579OWxqY",
-    authDomain: "blueflow-7e0d7.firebaseapp.com",
-    databaseURL: "https://blueflow-7e0d7-default-rtdb.firebaseio.com",
-    projectId: "blueflow-7e0d7",
-    storageBucket: "blueflow-7e0d7.firebasestorage.app",
-    messagingSenderId: "597793620379",
-    appId: "1:597793620379:web:b1e3fe56a1cc449119e13e"
+    
     //deixando sem por motivos de privacidade e segurança
     // aqui vai a parte de config do firebase
 };
@@ -168,7 +162,6 @@ async function atualizarGraficoPorPeriodo(periodo) {
 
     grafico.update();
 }
-
 
 function atualizarTudo() {
     atualizarValorAtual();
