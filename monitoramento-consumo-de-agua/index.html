@@ -1,262 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BlueFlow</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-  <link href="style.css" rel="stylesheet" />
-</head>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>BlueFlow</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"/>
+        <link href="style.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="dashboard">
+            <h1 class="title">💧 BlueFlow - Monitoramento de Vazão 💧</h1>
 
-<body>
-  <div class="dashboard">
-    <h1 class="title">💧 BlueFlow - Monitoramento de Vazão 💧</h1>
+            <div class="metrics-top">
+                <div class="metric-top">
+                    <h2 id="valorAtual">--</h2>
+                    <p>Vazão Atual (L/min)</p>
+                </div>
+                <div class="icon">
+                    <img src="/monitoramento-consumo-de-agua/images/3D_ICON.png" class="icon-metrics">
+                </div>
+            </div>
 
-    <div class="metrics-top">
-      <div class="metric-top">
-        <h2 id="valorAtual">--</h2>
-        <p>Vazão Atual (L/min)</p>
-      </div>
-      <div class="icon">
-        <img src="/images/3D_ICON.png" class="icon-metrics">
-      </div>
-    </div>
+            <h2 class="canvas-title">Histórico de Vazão de Água</h2>
 
-    <h2 class="canvas-title">Histórico de Vazão de Água</h2>
+            <div class="canvas-container">
+                <canvas id="graficoVazao"></canvas>
+            </div>
 
-    <div class="canvas-container">
-      <canvas id="graficoVazao"></canvas>
-    </div>
+            <div class="filtro-tempo">
+                <button onclick="atualizarGraficoPorPeriodo('hora')">Última Hora</button>
+                <button onclick="atualizarGraficoPorPeriodo('semana')">Última Semana</button>
+                <button onclick="atualizarGraficoPorPeriodo('mes')">Último Mês</button>
+            </div>
 
-    <div class="filtro-tempo">
-      <button onclick="atualizarGraficoPorPeriodo('hora')">Última Hora</button>
-      <button onclick="atualizarGraficoPorPeriodo('semana')">Última Semana</button>
-      <button onclick="atualizarGraficoPorPeriodo('mes')">Último Mês</button>
-    </div>
+            <h2 class="subtitle"> Mais informações: </h2>
 
-    <h2 class="subtitle"> Mais informações: </h2>
+            <h2 class="subtitle-infos"> Última hora: </h2>
 
-    <h2 class="subtitle-infos"> Última hora: </h2>
+            <div class="metrics-bottom">
+                <div class="metric-bottom">
+                    <h2 id="vazaoMediaHora">--</h2>
+                    <p>Vazão Média Última Hora (L/min)</p>
+                </div>
+                <div class="metric-bottom">
+                    <h2 id="vazaoPicoHora">--</h2>
+                    <p>Pico de Vazão Última Hora (L/min)</p>
+                </div>
+            </div>
 
-    <div class="metrics-bottom">
-        <div class="metric-bottom">
-            <h2 id="vazaoMediaHora">--</h2>
-            <p>Vazão Média Última Hora (L/min)</p>
+            <h2 class="subtitle-infos"> Hoje: </h2>
+
+            <div class="metrics-bottom">
+                <div class="metric-bottom">
+                    <h2 id="vazaoMediaSemana">--</h2>
+                    <p>Vazão Média Última Semana (L/min)</p>
+                </div>
+                <div class="metric-bottom">
+                    <h2 id="vazaoMediaMes">--</h2>
+                    <p>Vazão Média Último Mês (L/min)</p>
+                </div>
+            </div>
+
+            <h2 class="subtitle-infos"> Média Semanal e Mensal:</h2>
+
+            <div class="metrics-bottom">
+                <div class="metric-bottom">
+                    <h2 id="vazaoMediaDia">--</h2>
+                    <p>Vazão Média Hoje (L/min)</p>
+                </div>
+                <div class="metric-bottom">
+                    <h2 id="vazaoPicoDia">--</h2>
+                    <p>Pico de Vazão Hoje (L/min)</p>
+                </div>
+            </div>
         </div>
-        <div class="metric-bottom">
-            <h2 id="vazaoPicoHora">--</h2>
-            <p>Pico de Vazão Última Hora (L/min)</p>
-        </div>
-    </div>
 
-    <h2 class="subtitle-infos"> Hoje: </h2>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <script src="script.js"></script>
 
-    <div class="metrics-bottom">
-        <div class="metric-bottom">
-            <h2 id="vazaoMediaSemana">--</h2>
-            <p>Vazão Média Última Semana (L/min)</p>
-        </div>
-        <div class="metric-bottom">
-            <h2 id="vazaoMediaMes">--</h2>
-            <p>Vazão Média Último Mês (L/min)</p>
-        </div>
-    </div>
-
-    <h2 class="subtitle-infos"> Média Semanal e Mensal:</h2>
-
-    <div class="metrics-bottom">
-        <div class="metric-bottom">
-            <h2 id="vazaoMediaDia">--</h2>
-            <p>Vazão Média Hoje (L/min)</p>
-        </div>
-        <div class="metric-bottom">
-            <h2 id="vazaoPicoDia">--</h2>
-            <p>Pico de Vazão Hoje (L/min)</p>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-
-    <script>
-        const firebaseConfig = {
-
-            //deixando sem por motivos de privacidade e segurança
-            // aqui vai a parte de config do firebase
-
-            
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        const valorAtualEl = document.getElementById('valorAtual');
-
-        const ctx = document.getElementById('graficoVazao').getContext('2d');
-        const grafico = new Chart(ctx, {
-            type: 'line',
-            data: {
-            labels: [],
-            datasets: [{
-                label: 'Vazão (L/min)',
-                data: [],
-                borderColor: '#2980b9',
-                backgroundColor: 'rgba(41, 128, 185, 0.2)',
-                fill: true,
-                tension: 0.3,
-                pointRadius: 2,
-            }]
-            },
-            options: {
-            responsive: true,
-            animation: false,
-            scales: {
-                x: {
-                type: 'time',
-                time: {
-                    unit: 'hour',
-                    tooltipFormat: 'dd/MM/yyyy HH:mm:ss'
-                },
-                title: { display: true, text: 'Hora' }
-                },
-                y: {
-                title: { display: true, text: 'L/min' },
-                beginAtZero: true
-                }
-            },
-            plugins: {
-                legend: { display: true },
-                tooltip: { enabled: true },
-                title: {
-                    display: true,
-                    text: '',
-                    font: {
-                    size: 18
-                    },
-                    padding: {
-                    top: 10,
-                    bottom: 10
-                    }
-                }
-            }
-                        
-            }
-        });
-
-        function parseTimestampFirebase(str) {
-            const [datePart, timePart] = str.split('_');
-            const date = datePart.split('-').map(Number);
-            const time = timePart.split('-').map(Number);
-            return new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2]);
-        }
-
-        function atualizarValorAtual() {
-            db.ref('leituras/vazao_Lmin').on('value', snap => {
-            const val = snap.val();
-            valorAtualEl.textContent = val !== null ? parseFloat(val).toFixed(2) : '--';
-            });
-        }
-
-        async function atualizarMetricasPeriodo(dataInicio, calcularPico = false) {
-            const snap = await db.ref('leituras_com_tempo').once('value');
-            let soma = 0, count = 0, pico = 0;
-
-            snap.forEach(child => {
-            const data = parseTimestampFirebase(child.key);
-            const valor = parseFloat(child.val());
-            if (data >= dataInicio) {
-                soma += valor;
-                count++;
-                if (calcularPico && valor > pico) pico = valor;
-            }
-            });
-
-            return {
-            media: count > 0 ? (soma / count).toFixed(2) : '--',
-            pico: calcularPico && pico > 0 ? pico.toFixed(2) : '--'
-            };
-        }
-
-        async function atualizarTodasMetricas() {
-            const agora = new Date();
-            const hoje = new Date(agora); hoje.setHours(0, 0, 0, 0);
-            const umaHoraAtras = new Date(agora.getTime() - 60 * 60 * 1000);
-            const inicioSemana = new Date(agora.getTime() - 7 * 24 * 60 * 60 * 1000);
-            const inicioMes = new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-            const hora = await atualizarMetricasPeriodo(umaHoraAtras, true);
-            document.getElementById('vazaoMediaHora').textContent = hora.media;
-            document.getElementById('vazaoPicoHora').textContent = hora.pico;
-
-            const dia = await atualizarMetricasPeriodo(hoje, true);
-            document.getElementById('vazaoMediaDia').textContent = dia.media;
-            document.getElementById('vazaoPicoDia').textContent = dia.pico;
-
-            const semana = await atualizarMetricasPeriodo(inicioSemana, false);
-            document.getElementById('vazaoMediaSemana').textContent = semana.media;
-
-            const mes = await atualizarMetricasPeriodo(inicioMes, false);
-            document.getElementById('vazaoMediaMes').textContent = mes.media;
-        }
-
-        async function atualizarGraficoPorPeriodo(periodo) {
-            const agora = new Date();
-            let dataInicio;
-            let cor;
-            let titulo;
-
-            if (periodo === 'hora') {
-                dataInicio = new Date(agora.getTime() - 1 * 60 * 60 * 1000); 
-                cor = 'rgba(52, 152, 219, 0.8)';
-                titulo = 'Histórico da Última Hora';
-            } else if (periodo === 'semana') {
-                dataInicio = new Date(agora.getTime() - 7 * 24 * 60 * 60 * 1000);
-                cor = 'rgba(41, 128, 185, 1.0)';
-                titulo = 'Histórico Semanal';
-            } else if (periodo === 'mes') {
-                dataInicio = new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000); 
-                cor = 'rgba(20, 60, 90, 0.9)';
-                titulo = 'Histórico Mensal';
-            } else {
-                return;
-            }
-
-            const leiturasSnap = await db.ref('leituras_com_tempo').once('value');
-            const labels = [];
-            const dados = [];
-
-            leiturasSnap.forEach(child => {
-                const data = parseTimestampFirebase(child.key);
-                if (data >= dataInicio && data <= agora) {
-                    labels.push(data);
-                    dados.push(parseFloat(child.val()));
-                }
-            });
-
-            const zipped = labels.map((e, i) => ({ time: e, val: dados[i] }));
-            zipped.sort((a, b) => a.time - b.time);
-
-            grafico.data.labels = zipped.map(item => item.time);
-            grafico.data.datasets[0].data = zipped.map(item => item.val);
-            grafico.data.datasets[0].backgroundColor = cor;
-            grafico.data.datasets[0].borderColor = cor.replace('0.6', '1');
-
-            grafico.options.plugins.title.text = titulo;
-
-            grafico.update();
-        }
-
-
-        function atualizarTudo() {
-            atualizarValorAtual();
-            atualizarTodasMetricas();
-            atualizarGraficoPorPeriodo('hora');
-        }
-
-        atualizarTudo();
-        setInterval(atualizarTudo, 30000);
-    </script>
-</body>
+    </body>
 </html>
