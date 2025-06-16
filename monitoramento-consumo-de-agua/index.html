@@ -9,7 +9,22 @@
     </head>
     <body>
         <div class="dashboard">
-            <h1 class="title">💧 BlueFlow - Monitoramento de Vazão 💧</h1>
+            <div class="title">
+                <h1>💧 BlueFlow - Monitoramento de Vazão 💧</h1>
+            </div>
+
+            <div class="title-mobile">
+                <h1></h1>BlueFlow<br>Monitoramento de Vazão</h1>
+            </div>
+
+            <div class="metrics-top" id="alertaVazamento">
+                
+                🚨 Atenção: possível vazamento detectado! 🚨<br><br>
+                Vazão atual: <span id="valorAtualAlerta"></span> L/min<br>
+                Média (últimos 10 min): <span id="mediaAlerta"></span> L/min<br><br>
+
+                <button id="fecharAlertaVazamento" onclick="fecharAlerta()">Fechar</button>
+            </div>
 
             <div class="metrics-top">
                 <div class="metric-top">
@@ -28,11 +43,12 @@
             </div>
 
             <div class="filtro-tempo">
-                <button onclick="atualizarGraficoPorPeriodo('hora')">Última Hora</button>
-                <button onclick="atualizarGraficoPorPeriodo('semana')">Última Semana</button>
-                <button onclick="atualizarGraficoPorPeriodo('mes')">Último Mês</button>
+                <button id="btnHora" onclick="trocarPeriodo('hora')" class="active">Última Hora</button>
+                <button id="btnSemana" onclick="trocarPeriodo('semana')">Última Semana</button>
+                <button id="btnMes" onclick="trocarPeriodo('mes')">Último Mês</button>
+                <button id="btnAnual" onclick="trocarPeriodo('anual')">Último Ano</button>
             </div>
-
+            
             <h2 class="subtitle"> Mais informações: </h2>
 
             <h2 class="subtitle-infos"> Última hora: </h2>
@@ -52,6 +68,19 @@
 
             <div class="metrics-bottom">
                 <div class="metric-bottom">
+                    <h2 id="vazaoMediaDia">--</h2>
+                    <p>Vazão Média Hoje (L/min)</p>
+                </div>
+                <div class="metric-bottom">
+                    <h2 id="vazaoPicoDia">--</h2>
+                    <p>Pico de Vazão Hoje (L/min)</p>
+                </div>
+            </div>
+
+            <h2 class="subtitle-infos"> Média Semanal e Mensal:</h2>
+
+            <div class="metrics-bottom">
+                <div class="metric-bottom">
                     <h2 id="vazaoMediaSemana">--</h2>
                     <p>Vazão Média Última Semana (L/min)</p>
                 </div>
@@ -61,18 +90,19 @@
                 </div>
             </div>
 
-            <h2 class="subtitle-infos"> Média Semanal e Mensal:</h2>
+            <h2 class="subtitle-infos"> Mês com maior consumo: </h2>
 
-            <div class="metrics-bottom">
-                <div class="metric-bottom">
-                    <h2 id="vazaoMediaDia">--</h2>
-                    <p>Vazão Média Hoje (L/min)</p>
+            <div class="metric-bottom mesMaiorConsumo">
+                <div class="mesMaiorConsumo-text">
+                    <h2 id="mesMaiorConsumo">--</h2>
+                    <p>Mês com Maior Consumo total (Litros)</p>
+
                 </div>
-                <div class="metric-bottom">
-                    <h2 id="vazaoPicoDia">--</h2>
-                    <p>Pico de Vazão Hoje (L/min)</p>
+                <div class="icon-grafico">
+                    <img src="images/grafico-icon.png" alt="Gráfico" />
                 </div>
             </div>
+
         </div>
 
         <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -80,6 +110,5 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
         <script src="script.js"></script>
-
     </body>
 </html>
