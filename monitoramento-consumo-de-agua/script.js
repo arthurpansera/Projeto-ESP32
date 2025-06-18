@@ -170,7 +170,6 @@ async function atualizarMesMaiorConsumo() {
   }
 }
 
-
 async function atualizarTodasMetricas() {
     try {
         const agora = new Date();
@@ -196,7 +195,6 @@ async function atualizarTodasMetricas() {
         console.error("Erro ao atualizar métricas:", error);
     }
 }
-
 
 async function atualizarGrafico(periodo) {
     try {
@@ -307,7 +305,6 @@ async function atualizarGrafico(periodo) {
         console.error("Erro ao atualizar gráfico:", error);
     }
 }
-
 
 async function calcularMesMaiorConsumo() {
     try {
