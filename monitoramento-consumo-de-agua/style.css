@@ -8,9 +8,11 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+
 h1 {
     margin-bottom: 10px;
 }
+
 .dashboard {
     display: flex;
     flex-direction: column;
@@ -23,11 +25,12 @@ h1 {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.253);
     padding: 20px;
 }
-.title{
+
+.title {
    font-size: 1.1rem;
 }
 
-.title-mobile{
+.title-mobile {
     display: none;
 }
 #alertaVazamento {
@@ -65,6 +68,7 @@ h1 {
     margin-bottom: 30px;
     width: 90%;
 }
+
 .metric-top {
     display: flex;
     flex-direction: column;
@@ -81,31 +85,37 @@ h1 {
     margin: 0 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.253);  
 }
-.icon{
+
+.icon {
     display: flex;
     justify-content: center;
     width: 50%;
 }
+
 .icon img {
     width: 70%;
 }
-.subtitle{
+
+.subtitle {
     font-size: 30px;
     margin-top: 60px;
     margin-bottom: 40px;
 }
-.subtitle-infos{
+
+.subtitle-infos {
     margin-top: 0;
     margin-right: auto;
     padding-left: 33px;
 }
-.metrics-bottom{
+
+.metrics-bottom {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
     width: 95%;
 }
+
 .metric-bottom {
     display: flex;
     flex-direction: column;
@@ -153,6 +163,7 @@ h1 {
     font-size: 2rem;
     color: #1a32a0;
 }
+
 .metric p {
     margin: 5px 0 0;
     font-weight: 600;
@@ -161,6 +172,7 @@ h1 {
     margin: 20px 0;
     text-align: center;
 }
+
 .filtro-tempo button {
     background-color: #3352dd;
     color: white;
@@ -171,13 +183,16 @@ h1 {
     cursor: pointer;
     font-weight: bold;
 }
+
 .filtro-tempo button:hover {
     background-color: #142881;
 }
-.canvas-title{
+
+.canvas-title {
     font-size: 30px;
 }
-.canvas-container{
+
+.canvas-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,6 +204,7 @@ h1 {
     padding: 20px;
     padding-bottom: 20px;
 }
+
 canvas {
     width: 93% !important;
     height: 380px !important;
@@ -203,18 +219,22 @@ canvas {
         flex-direction: column;
         width: 100%;
     }
-    .title{
+
+    .title {
         display: none;
     }
-    .title-mobile{
+
+    .title-mobile {
         display: flex;
         text-align: center;
         font-size: 28px; 
         font-weight: bold;
     }
-    .icon{
+
+    .icon {
         display: none;
     }
+
     .canvas-title {
         font-size: 22px;
         text-align: center;
@@ -229,6 +249,7 @@ canvas {
         width: 100% !important;
         height: 300px !important;
     }
+
     .filtro-tempo {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -241,16 +262,18 @@ canvas {
         padding: 12px 8px;
         font-size: 14px;
     }
-    .subtitle{
+
+    .subtitle {
         font-size: 25px;
     }
-    .subtitle-infos{
+
+    .subtitle-infos {
         margin-top: 0;
         margin-right: 0;
         padding-left: 0;
         font-size: 20px;
     }
-    .metric-top{
+    .metric-top {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -259,6 +282,7 @@ canvas {
     .metrics-bottom {
         flex-direction: column;
     }
+
     .metric-bottom {
         display: flex;
         align-items: center;
@@ -267,13 +291,15 @@ canvas {
         width: 80% ;
         margin-bottom: 30px;
     }
+
     .mesMaiorConsumo {
         font-size: 16px;
         width: 80%;
         margin-left: 10px;
         margin-bottom: 50px;
     }
-    .mesMaiorConsumo-text{
+
+    .mesMaiorConsumo-text {
         width: 100%;
         display: flex;
         align-items: center;
@@ -281,7 +307,7 @@ canvas {
         text-align: center;
         margin-left: 0;
     }
-    .icon-grafico{
+    .icon-grafico {
         display: none;
     }
 }
